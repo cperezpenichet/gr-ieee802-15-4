@@ -1,12 +1,12 @@
 #!/usr/bin/python
 
-import glob
+from glob import glob
+from os import sep
 
 import pure_pcapy
 
-#PCAP_FILE = '/tmp/sensor_chips.pcap'
-NOISY_PCAP = '/tmp/sensor_chips_06.pcap'
-BASE_PCAP  = '/tmp/sensor_chips_01.pcap'
+PCAP_DIR   = '/tmp'
+BASE_PCAP  = PCAP_DIR + '/sensor_chips_01.pcap'
 
 TIME_EPS   = 1e-2
 
@@ -20,6 +20,9 @@ def one_count(n):
 		cnt += 1
 		n &= (n-1)
 	return cnt
+
+def get_num(x):
+    return ''.join(ele for ele in x if ele.isdigit())
 
 def compute_BER(pcap_file):
 	n_pcap = pure_pcapy.open_offline(pcap_file)
@@ -55,5 +58,6 @@ def compute_BER(pcap_file):
 	return error_bits, total_bits, float(error_bits)/total_bits
 
 if __name__ == '__main__':
-	for pcap in sorted(glob.glob('/tmp/*.pcap')):
-		print "%s,%s" % (pcap, ','.join(map(str, compute_BER(pcap))))
+	for pcap in sorted(glob(sep.join((PCAP_DIR, '*.pcap')))):
+		print "%s,%s" % (get_num(pcap), ','.join(map(str, compute_BER(pcap))))
+
