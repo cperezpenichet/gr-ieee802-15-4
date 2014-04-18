@@ -34,14 +34,19 @@ def compute_BER(pcap_file):
 	if n_header == None:
 		return float("inf"), 0, float("inf")
 	n_start, b_start = get_time(n_header), get_time(b_header)
-	while n_header != None and b_header != None:
+	while n_header != None:
 		n_time = get_time(n_header, n_start)
-		b_time = get_time(b_header, b_start)
-
-		while b_header != None and n_time > b_time-TIME_EPS and (abs(n_time - b_time) > TIME_EPS):
-			b_header, b_payload = b_pcap.next()
+		
+		while True:
 			b_time = get_time(b_header, b_start)
-		if (abs(n_time - b_time) > TIME_EPS):
+			if b_header == None or \
+			   b_time-n_time > TIME_EPS or \
+			   (abs(n_time-b_time) <= TIME_EPS and \
+				b_header.getlen() == n_header.getlen()\
+			   ):
+				break
+			b_header, b_payload = b_pcap.next()
+		if b_header == None or (abs(n_time - b_time) > TIME_EPS):
 			n_header, n_payload = n_pcap.next()
 			continue
 		
@@ -58,6 +63,6 @@ def compute_BER(pcap_file):
 	return error_bits, total_bits, float(error_bits)/total_bits
 
 if __name__ == '__main__':
-	for pcap in sorted(glob(sep.join((PCAP_DIR, '*.pcap')))):
+	for pcap in sorted(glob(sep.join((PCAP_DIR, '*_chips_[0-9][0-9].pcap')))):
 		print "%s,%s" % (get_num(pcap), ','.join(map(str, compute_BER(pcap))))
 
