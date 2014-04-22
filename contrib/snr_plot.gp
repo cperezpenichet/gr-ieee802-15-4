@@ -2,12 +2,14 @@
 DATAFILE = "tst.dat"
 set datafile separator ","
 
-set key off
+set key autotitle columnhead
+#set key off
+
 set logscale y
 set grid x y
 
 set xlabel "SNR [dB]"
-set ylabel "BER"
+set ylabel "CER"
 
 plot DATAFILE using 1:4 with linespoints
 
