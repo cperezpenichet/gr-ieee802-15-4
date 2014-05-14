@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ASCII'?>
 <flow_graph>
-  <timestamp>Mon May 12 23:02:33 2014</timestamp>
+  <timestamp>Wed May 14 11:33:38 2014</timestamp>
   <block>
     <key>options</key>
     <param>
@@ -595,6 +595,52 @@
     <param>
       <key>_coordinate</key>
       <value>(576, 571)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>note</key>
+    <param>
+      <key>id</key>
+      <value>note_2</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>note</key>
+      <value>Calibration is automated with new AWGC model that takes snr directly as a pram</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(648, 11)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>note</key>
+    <param>
+      <key>id</key>
+      <value>note_0</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>note</key>
+      <value>here we compute noise amplitud from snr, i.e. sigma as a function of signal aplitude and bandwidth: SNR = Eb/No, Eb = A**2/4/fc (A:signal amp and Fc is carrier frequency for MSK), sigma = sqrt(No*B/2), sigma = sqrt(A**2*B/8/fc/10**(snr_db/10)), fc=500 kHz (for 802.15.4, Tc = 1e-6 s), sampling rate is 4 Msps but we limit the noise bandwidth to the system one, B = 1.5 * 500kHz = 750 kHz (0.75 fc*Tc, see power spectra for MSK signals, Haykin 4ed fig. 6.9) .thus, sigma = A/sqrt(16/3.*10**(snr_db/10.))</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(404, 572)</value>
     </param>
     <param>
       <key>_rotation</key>
