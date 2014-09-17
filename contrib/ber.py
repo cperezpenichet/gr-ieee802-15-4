@@ -8,6 +8,8 @@ import pure_pcapy
 
 PCAP_DIR   = '/tmp'
 
+DSSS_THRESHOLD = 6
+
 CHIP_MAPPING = [
         1618456172,
         1309113062,
@@ -26,7 +28,12 @@ CHIP_MAPPING = [
         139563807,
         2021988657]
 
+# Exp 7, 8, 17, 18, 20, 21
+#SYMBOLS = (0xA0, 0x11, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF)
+
+# Exp6, 12-16, 22
 SYMBOLS = (0xA0, 0x09, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF)
+
 #SYMBOLS = (0xA0, 0x00, 0x0A, 0x00, 0x00)
 
 def get_time(header, start_time=0):
@@ -74,10 +81,10 @@ def compute_chip_stats(pcap_file):
 
 			bad_bits = one_count((H^h)&0x7FFFFFFE)
 			error_bits += bad_bits
-			error_symbols += 1 if bad_bits > 0 else 0
+			error_symbols += 1 if bad_bits > DSSS_THRESHOLD else 0
 			bad_bits = one_count((L^l)&0x7FFFFFFE)
 			error_bits += bad_bits
-			error_symbols += 1 if bad_bits > 0 else 0
+			error_symbols += 1 if bad_bits > DSSS_THRESHOLD else 0
 			total_bits -= 4
 		#	print n_time, error_bits, total_bits, '{:032b}'.format((H^h)&0x7FFFFFFE), '{:032b}'.format((L^l)&0x7FFFFFFE)
 		#print
