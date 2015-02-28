@@ -21,6 +21,7 @@ list(APPEND include_sources
 	packet_sink.h
 	packet_chip_sink.h
 	rime_stack.h
+	max_ff.h
 )
 
 install(

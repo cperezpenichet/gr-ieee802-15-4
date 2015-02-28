@@ -30,6 +30,7 @@ list(APPEND gr_ieee802_15_4_sources
     ruc_connection.cc
     stubborn_sender.cc
     uc_connection.cc
+    max_ff_impl.cc
 )
 
 list(APPEND gr_ieee802_15_4_libs

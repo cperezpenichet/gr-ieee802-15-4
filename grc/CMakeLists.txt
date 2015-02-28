@@ -20,5 +20,6 @@ install(FILES
     ieee802_15_4_packet_sink.xml
     ieee802_15_4_packet_chip_sink.xml
     ieee802_15_4_rime_stack.xml
+    ieee802_15_4_max_ff.xml
     DESTINATION share/gnuradio/grc/blocks
 )
