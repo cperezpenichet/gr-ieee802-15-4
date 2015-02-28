@@ -24,6 +24,7 @@ list(APPEND gr_ieee802_15_4_sources
     bc_connection.cc
     mac.cc
     packet_sink.cc
+    packet_chip_sink.cc
     rime_connection.cc
     rime_stack.cc
     ruc_connection.cc

@@ -19,6 +19,7 @@ list(APPEND include_sources
 	api.h
 	mac.h
 	packet_sink.h
+	packet_chip_sink.h
 	rime_stack.h
 )
 
