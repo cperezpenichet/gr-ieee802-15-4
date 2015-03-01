@@ -9,13 +9,6 @@ echo -e \\t$0 OUTPUT_DIR
 exit 1
 fi
 
-if test -z "$2"
-then
-AMP="280e-3"
-else
-AMP=$2
-fi
-
 SNR_VALUES=(1 2 3 4 5 6 8 10 12 14 16 20 25 30)
 
 CONTRIB_DIR="."
@@ -33,7 +26,6 @@ for SNR in ${SNR_VALUES[@]}; do
 	echo "SNR: "$SNR
 	python $TOP_BLOCK \
 		--trace-filename=$PCAP_DIR/capture.data \
-		--signal-amp=$AMP \
 		--snr-db=$SNR \
 		--output-dir=$PCAP_DIR \
 	> /dev/null
