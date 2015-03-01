@@ -2,6 +2,7 @@
 
 from glob import glob
 from os import sep
+import sys
 
 import pure_pcapy
 
@@ -116,10 +117,12 @@ def compute_byte_stats(pcap_file):
 	       float(error_bits)/total_bits if total_bits > 0 else float('inf'))
 
 if __name__ == '__main__':
+	if len(sys.argv) > 0:
+		PCAP_DIR = sys.argv[1]
 	print "SNR,Chip errors,Total chips,CER,Symbol errors,Total symbols,SER,Bit errors,Total bits,BER"
 	for pcap in sorted(glob(sep.join((PCAP_DIR, '*_chips_[0-9][0-9].pcap')))):
 		#pcap = "/tmp/sensor_chips_36.pcap"
-		snr = int(get_num(pcap))
+		snr = int(get_num(pcap.split(sep)[-1]))
 		a = sep.join((PCAP_DIR, "sensor_%02d.pcap")) % (snr,)
 		b = sep.join((PCAP_DIR, "sensor_chips_%02d.pcap")) % (snr,)
 		print "%s,%s,%s" % (snr,
