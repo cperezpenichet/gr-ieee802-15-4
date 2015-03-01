@@ -1,5 +1,7 @@
 
-DATAFILE = "tst.dat"
+set terminal pdfcairo rounded
+
+if (!exists("DATADIR")) DATADIR='.'
 set datafile separator ","
 
 set key autotitle columnhead
@@ -7,15 +9,18 @@ set key autotitle columnhead
 
 set logscale y
 set grid x y
-
 set xlabel "SNR [dB]"
+
+set output DATADIR."/CER.pdf"
 set ylabel "CER"
+plot DATADIR."/snr.dat" using 1:4 with linespoints
 
-plot DATAFILE using 1:4 with linespoints
+set output DATADIR."/SER.pdf"
+set ylabel "SER"
+plot DATADIR."/snr.dat" using 1:7 with linespoints
 
-#
-# Use this way of plotting for the old way of exporting the SNR values
-#
-#plot DATAFILE using (20*log10(30/$1)):4 with linespoints
+set output DATADIR."/BER.pdf"
+set ylabel "BER"
+plot DATADIR."/snr.dat" using 1:10 with linespoints
 
-pause -1
+#pause -1
